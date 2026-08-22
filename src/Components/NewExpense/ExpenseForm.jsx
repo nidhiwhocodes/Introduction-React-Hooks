@@ -1,4 +1,4 @@
-import { useState } from "react";
+import  { useState } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
@@ -9,17 +9,20 @@ const ExpenseForm = (props) => {
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
   };
+
   const amountChangeHandler = (event) => {
     setEnteredAmount(event.target.value);
   };
+
   const dateChangeHandler = (event) => {
     setEnteredDate(event.target.value);
   };
+
   const formSubmitHandler = (event) => {
     event.preventDefault();
     const expenseData = {
       title: enteredTitle,
-      price: enteredAmount,
+      price: +enteredAmount,
       date: new Date(enteredDate),
     };
     props.onSaveExpenseData(expenseData);
@@ -55,13 +58,21 @@ const ExpenseForm = (props) => {
             type="date"
             value={enteredDate}
             id="date"
-            onChange={dateChangeHandler}
             min="2023-01-01"
             max="2024-12-31"
+            onChange={dateChangeHandler}
           />
         </div>
       </div>
       <div className="new-expense__actions">
+        <button
+          type="button"
+          onClick={() => {
+            props.onCancel();
+          }}
+        >
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
